@@ -1,27 +1,57 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+    <div class="col-3">
+      <h3>Your Profile</h3>
+      <div class="card">
+      <div class="card-body">
+          <div class="row">
+              <div class="col-md-2">
+                  <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+              </div>
+              <div class="col-md-10">
+                  <p>
+                    <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
+                      <strong>Maniruzzaman Akash</strong>
+                      <strong>@mani</strong>
+                    </a>
 
-<h1>Tweets</h1>
+                  </p>
+                 <!-- <div class="clearfix"></div> -->
+                  <p>Lorem Ipsum is simply dummy text of the pr make  </p>
+                  <p>
+                      <a class="btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                      <a class="btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                 </p>
+              </div>
+          </div>
+          </div>
+        </div>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Tweet</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <!-- --------------- -->
+    <div class="col-6">
+      <h3>Tweets</h3>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+              <div class="col-md-2">
+                  <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+              </div>
+              <div class="col-md-10">
+                <%= render 'tweets/form'%>
+              </div>  
+          </div>
+        </div>
+      </div>
+      
+      <br>
+      
+      <%= render 'feed'%>
+    
+    </div>
 
-  <tbody>
-    <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%= tweet.tweet %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <!-- --------------- -->
+    <div class="col-3">
+      <%= render 'whom_to_follow'%>
+    </div>
+</div>
 
-<br>
-
-<%= link_to 'New Tweet', new_tweet_path %>
