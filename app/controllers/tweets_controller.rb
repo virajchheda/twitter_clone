@@ -1,21 +1,22 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_tweet, only: [:show, :edit, :update, :destroy, :retweet]
+  before_action :authenticate_user!, except: [:index, :show]
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all.order("created_at DESC")
+    @tweets = Tweet.includes(:user).all.order("created_at DESC")
     @tweet = Tweet.new
   end
 
   # GET /tweets/1
   # GET /tweets/1.json
   def show
+
   end
 
   # GET /tweets/new
   def new
-    @tweet = Tweet.new
+    @tweet = current_user.tweets.build
   end
 
   # GET /tweets/1/edit
@@ -25,11 +26,26 @@ class TweetsController < ApplicationController
   # POST /tweets
   # POST /tweets.json
   def create
-    @tweet = Tweet.new(tweet_params)
+    @tweet = current_user.tweets.build(tweet_params)
 
     respond_to do |format|
       if @tweet.save
         format.html { redirect_to root_path, notice: 'Tweet was successfully created.' }
+        format.json { render :show, status: :created, location: @tweet }
+      else
+        format.html { render :new }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def retweet
+    # byebug
+    @new_tweet = current_user.tweets.build(tweet:"RETWETTED")
+    @new_tweet.parent_tweet_id = @tweet.id
+    respond_to do |format|
+      if @new_tweet.save
+        format.html { redirect_to root_path, notice: 'Re-Tweet was successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new }

@@ -2,7 +2,7 @@
 <%= simple_form_for(@tweet) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :tweet, label:"Tweet about it", placeholder:"Compose a new tweet.....", require:true%>
+  <%= f.input :tweet, label:"Tweet about it", placeholder:"Compose a new tweet.....", require:true, autofocus:true%>
 
   <%= f.button :submit, class: "btn-primary" %>
 <% end %>
