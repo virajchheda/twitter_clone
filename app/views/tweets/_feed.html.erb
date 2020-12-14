@@ -40,15 +40,27 @@
                       <%= link_to tweet, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-md" do %>
                         <i class="fa fa-trash-o"></i>
                       <% end %>
-                    
+
                     <%elsif !tweet.parent_tweet.present?%>
                       <%= link_to retweet_tweet_path(tweet), class: "btn btn-md" do %>
                         <i class="fa fa-reply"></i>
                       <% end %>
                     <%end%>
+                      <%= link_to new_comment_path(tweet), class: "btn btn-md" do %>
+                        <i class="fa fa-comment"></i>
+                      <% end %>                    
                   <%end%>
-                  <!-- <a class="btn btn-md btn-outline-primary "> <i class="fa fa-reply"></i> Reply</a>
-                  <a class="btn btn-md text-white btn-danger"> <i class="fa fa-heart"></i> Like</a> -->
+
+                  <% if tweet.comments.present?%>
+                    <h6>Comments:</h6>
+                    <div class="card">
+                      <div class="card-body">
+                    <% tweet.comments.each do |comment|%>
+                        <p><strong><%= comment.user.name%>:</strong><%= comment.comment%></p>
+                    <%end%>
+                      </div>
+                    </div>
+                  <%end%>
 
                 </p>
               </div>
